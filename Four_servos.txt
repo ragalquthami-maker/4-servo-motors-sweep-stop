@@ -1,0 +1,64 @@
+#include <Servo.h>
+
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+
+const int pin1 = 9;
+const int pin2 = 10;
+const int pin3 = 11;
+const int pin4 = 12;
+
+unsigned long startTime;
+const unsigned long sweepDuration = 2000;
+
+int angle = 0;
+int step = 1;
+
+unsigned long lastMoveTime = 0;
+const int moveInterval = 15;
+
+bool sweepDone = false;
+
+void setup() {
+  servo1.attach(pin1);
+  servo2.attach(pin2);
+  servo3.attach(pin3);
+  servo4.attach(pin4);
+
+  startTime = millis();
+}
+
+void moveAllServos(int a) {
+  servo1.write(a);
+  servo2.write(a);
+  servo3.write(a);
+  servo4.write(a);
+}
+
+void loop() {
+  if (!sweepDone) {
+    unsigned long elapsed = millis() - startTime;
+
+    if (elapsed < sweepDuration) {
+      if (millis() - lastMoveTime >= moveInterval) {
+        lastMoveTime = millis();
+
+        moveAllServos(angle);
+
+        angle += step;
+        if (angle >= 180) {
+          angle = 180;
+          step = -1;
+        } else if (angle <= 0) {
+          angle = 0;
+          step = 1;
+        }
+      }
+    } else {
+      moveAllServos(90);
+      sweepDone = true;
+    }
+  }
+}

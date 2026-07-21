@@ -28,8 +28,10 @@ This is a photo taken after the servos stopped and locked at 90 degrees:
 ![Stop at 90 Degrees](stop-90-degrees.jpeg)
 
 This is the video showing the full process from start to finish, including both movements:
-Video path: servo-simulation.mp4
+
 [servo-simulation.mp4](servo-simulation.mp4)
+
+
 This is the Arduino code file used in this project:
 [four_servos.txt](four_servos.txt)
 
